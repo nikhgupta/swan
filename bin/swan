@@ -1,3 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'thor/group'
 require 'swan'
+require 'swan/cli'
+
+Swan::CLI.start ARGV
