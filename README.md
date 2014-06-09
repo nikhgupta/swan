@@ -1,24 +1,25 @@
 # Swan
 
-TODO: Write a gem description
+**Download stuff online with poise.**
+
+Swan helps you download music, photos, videos, or any other data from various
+online websites. It, currently, implements downloading the following data:
+
+- Songs from Indian music streaming site: [Gaana.com](http://www.gaana.com)
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'swan'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install it yourself as:
 
     $ gem install swan
 
 ## Usage
 
-TODO: Write usage instructions here
+To use Swan, simply run the following command:
+
+    swan <url>
+
+If a `<url>` is not supported, you will get the appropriate error.
 
 ## Contributing
 
