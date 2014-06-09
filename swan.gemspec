@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Swan::VERSION
   spec.authors       = ["Nikhil Gupta"]
   spec.email         = ["me@nikhgupta.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Download online stuff with poise.}
+  spec.summary       = %q{Download online stuff with poise.}
+  spec.homepage      = "http://github.com/nikhgupta/swan"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -21,4 +21,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
+  spec.add_development_dependency "pry" # debugging
+
+  spec.add_dependency "thor"            # cli app
+  spec.add_dependency "parallel"        # parallel execution
+  spec.add_dependency "mechanize"       # downloader/scraper
+  spec.add_dependency "taglib-ruby"     # music related gem
+  spec.add_dependency "activesupport"   # supporting gem
 end
