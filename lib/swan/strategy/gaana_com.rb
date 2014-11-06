@@ -51,7 +51,7 @@ module Swan
         end
 
         def stream_url
-          url = "http://gaana.com/streamprovider/get_stream_data_v1.php?track_id=#{id}"
+          url = "http://gaana.com/streamprovider/get_stream_data_v1.php?track_id=#{id}&quality=high"
           JSON.parse(Swan.agent.get(url).body)["stream_path"] rescue nil
         end
 
@@ -112,8 +112,6 @@ module Swan
       def download_music
         counter = 0
         @urls.map do |url|
-          uri  = URI.parse url
-          path = uri.path
           parse_collection_urls url
         end.flatten.each do |url|
           page  = Swan.agent.get(url)
