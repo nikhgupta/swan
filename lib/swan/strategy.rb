@@ -24,6 +24,8 @@ module Swan
         matched = klass.hosts.detect{ |host| url_host =~ host }
         return klass if matched
       end
+
+      raise "Strategy/host not implemented, yet."
     end
   end
 end

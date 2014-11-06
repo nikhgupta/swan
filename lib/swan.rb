@@ -16,6 +16,9 @@ module Swan
     command  = "wget -ct 3 \"#{url}\" -O \"#{path}\""
     command += " --referer=#{options.fetch(:referer)}" if options.fetch(:referer)
     say options.fetch(:status), options.fetch(:message), options.fetch(:color, :magenta) if options.fetch(:status)
+
+    FileUtils.mkdir_p(File.dirname(path)) unless File.directory?(File.dirname(path))
+
     if ENV['DEBUG']
       say :run, command
       system command

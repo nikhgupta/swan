@@ -13,10 +13,8 @@ module Swan
       strategy = Swan::Strategy.find_for url
 
       meths = strategy.available_downloads
-      if meths.count < 1
-        Swan.say :error, "Not implemented, yet."
-        exit 1
-      elsif meths.count < 2 || (options[:what] && meths.include?(options[:what].underscore.to_sym))
+
+      if meths.count < 2 || (options[:what] && meths.include?(options[:what].underscore.to_sym))
         what = meths[0] || options[:what].underscore.to_sym
         strategy.new what, url, File.join(options[:downloads_path])
       else
@@ -30,6 +28,9 @@ module Swan
     rescue Interrupt
       puts
       Swan.say :good_bye, nil, :cyan
+    rescue RuntimeError => e
+      Swan.say :error, e.message
+      Swan.say :backtrace, e.backtrace.join("\n" + " " * 14) if ENV['DEBUG']
     end
   end
 end
