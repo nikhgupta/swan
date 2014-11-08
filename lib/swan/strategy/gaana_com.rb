@@ -56,11 +56,16 @@ module Swan
         end
 
         def perform_download
-          raise "No download url found for: #{fullname}." unless stream_url
+          url = stream_url
+          if url =~ /manifest\.f4m/
+            raise "Could not get a link to MP3 for: #{fullname}."
+          elsif !url
+            raise "No download url found for: #{fullname}."
+          end
 
           Swan.downloader image, art_path, status: "Artwork", message: album, referer: referer unless File.size?(art_path)
           Swan.downloader thumb, art_path, status: "Artwork", message: album, referer: referer unless File.size?(art_path)
-          Swan.downloader stream_url, file_path, status: "Song", message: fullname, referer: referer
+          Swan.downloader url,  file_path, status: "Song", message: fullname, referer: referer
         end
 
         def add_id3v2_tags
@@ -121,12 +126,12 @@ module Swan
 
           songs.each do |song|
             begin
+              counter += 1
               song.perform_download
               song.add_id3v2_tags
-              counter += 1
             rescue StandardError => e
               Swan.say :error, e.message
-              Swan.say :warning, "Song may not have been downloaded: #{fullname}"
+              # Swan.say :warning, "Song may not have been downloaded: #{song.fullname}"
               Swan.say :backtrace, e.backtrace.join("\n" + " " * 14) if ENV['DEBUG']
             end
             Swan.say :info, "Downloaded #{counter} songs." if counter % 20 == 0
