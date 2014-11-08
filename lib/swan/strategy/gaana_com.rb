@@ -126,15 +126,15 @@ module Swan
 
           songs.each do |song|
             begin
-              counter += 1
               song.perform_download
               song.add_id3v2_tags
+              counter += 1
             rescue StandardError => e
-              Swan.say :error, e.message
+              Swan.say :warning, e.message
               # Swan.say :warning, "Song may not have been downloaded: #{song.fullname}"
               Swan.say :backtrace, e.backtrace.join("\n" + " " * 14) if ENV['DEBUG']
             end
-            Swan.say :info, "Downloaded #{counter} songs." if counter % 20 == 0
+            Swan.say :info, "Downloaded #{counter} songs." if counter % 20 == 0 && counter > 0
           end
         end
 
